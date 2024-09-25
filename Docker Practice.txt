@@ -22,7 +22,7 @@ But still we cannot access it from the browser. To access, map container port to
 8. docker run --name nginx_c -p 80:80 -d nginx (Server now accessible from browser.).
 9. docker stop nginx_c
 
---------------------------------------------------------------------------------------------------
+-----------------------------------------------------
 Python - Docker Build Image, Run it and Push it to Docker Hub.
 
 1. Create a file test.py and paste following code inside it.
@@ -45,7 +45,7 @@ CMD python3 test.py
 5. docker run --name pythonapp_c  imrantaurus2003/pythonapp
 6. docker push imrantaurus2003/pythonapp
 
--------------------------------------------------------------------------------------------------
+-----------------------------------------------------
 
 PhP - Docker Build Image, Run it and Push it to Docker Hub.
 
@@ -86,6 +86,6 @@ COPY index.php .
 5. docker run --name phpapp_c -p 8080:80 -d imrantaurus2003/phpapp
 6. docker push imrantaurus2003/phpapp
 
-------------------------------------------------------------------
+-----------------------------------------------------
 TO BUILD DOCKER IMAGE WITH CUSTOM DOCKERFILE NAME:
 1. docker build -f df -t phpapp-8.3 .
