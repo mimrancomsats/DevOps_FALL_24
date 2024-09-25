@@ -12,7 +12,7 @@ Some preprocessing
 Search for the nginx image from Docker Hub.
 -----------------------------------------------------
 1. docker pull nginx
-2. docker images.
+2. docker images
 3. docker run nginx (It will take us inside the container).
 4. docker run --name nginx_c -d nginx (Run container in detached mode).
 
