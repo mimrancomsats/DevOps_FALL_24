@@ -100,7 +100,7 @@ $dbPassword = getenv('PASSWORD');
 
 
 // Create connection
-$conn = new mysqli_connect($dbHost, $dbUser, $dbPassword, $dbName);
+$connect = mysqli_connect($dbHost, $dbUser, $dbPassword, $dbName);
 
 $table_name = "php_docker_table";
 
