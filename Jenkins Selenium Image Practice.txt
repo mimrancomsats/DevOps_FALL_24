@@ -73,7 +73,7 @@ COPY firsttest.py .
 CMD ["python", "firsttest.py"]
 
 7. On the Ubuntu command line, run the following command to create an image of the Selenium Test Environment
-   docker built -t selenium-test .
+   docker build -t selenium-test .
 8. Run the following command on command line, run the following command to execute Selenium Test cases.
    docker run selenium-test
 9. If the Image runs successfully, then it will display the string "Received!" on the command line.
