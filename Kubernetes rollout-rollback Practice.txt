@@ -1,0 +1,71 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Rollout and Rollback
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Testing Rollout Feature in Kubernetes
+-----------------------------------------------------
+1. First, create a file using nano rollout.yml with nginx image and paste service and deployment yaml inside it.
+2.
+apiVersion: v1
+kind: Service
+metadata:
+  name: rollout
+  labels:
+    app: nginx
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: rollout
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollout
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rollout
+  template:
+    metadata:
+      labels:
+        app: rollout
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+3. Deploy deployment and service files  using following command
+4. kubectl apply -f rollout.yml
+5. Run the following commands to check that all pods are running.
+6. kubectl get deployments
+7. Run the following command to view the rollout history
+8. kubectl rollout history deployment rollout
+9. Run the following command to annotate the change-cause column.
+10. kubectl annotate deployment rollout kubernetes.io/change-cause="nginx:latest deployment"
+11. Again run the command provided in step 8 to view the rollout history. You should see the status annotated to the one set in step 10.
+12. Next edit the rollout.yml created in step 2 with container image of "httpd:latest" and save it.
+13. Run the following commands to update the deployment.
+14. kubectl apply -f rollout.yml
+15. Run the following command to view the rollout history
+16. kubectl rollout history deployment rollout
+17. Now, you should see that there are two versions of the deployments, first one with nginx deployment and second with httpd deployment.
+18. Run the following command to annotate the change-cause column.
+19. kubectl annotate deployment rollout kubernetes.io/change-cause="httpd:latest deployment"
+20. Run the command provided in step 16 to view the rollout history. You should see the status annotated to the one set in step 19.
+21. Run minikube service rollout command given below to get the url and verfiy httpd server is running.
+22. minikube service rollout --url
+
+Testing Rollback Feature in Kubernetes
+-----------------------------------------------------
+1. Run the following command to rollback to the nginx deployment.
+2. kubectl rollout undo deployment rollout.
+3. Run the following command to view the rollout history
+4. kubectl rollout history deployment rollout
+5. It should add revision in the history with ID 3 and remove revision 1 from the history 
+6. View the url of the service again to find out that deployment has successfully rolled out to nginx deployment.
+7. In the similar way, if there are more than 6 deployments rolled out and you want to rollback to 4th revision, then use following command.
+8. kubectl rollout undo deployment --to-revision=4  
+9. Create different images of yourproject with varied features and try rollout and rollback features for your own application.
